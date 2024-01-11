@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use PHPUnit\TextUI\Configuration\Source;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::middleware(['statuslogin'])->group(function (){
+    Route::get('/home', [HomeController::class, 'index']);
+});
+
+Route::controller(UserController::class)->group(function () {
+    Route::post('/login', 'login')->name('login');
+    Route::get('/logout', 'logout');
+});
+

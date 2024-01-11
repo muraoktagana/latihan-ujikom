@@ -20,8 +20,7 @@
         .card{
             width: 100%;
             max-width: 500px;
-            background-color: white;
-            backdrop-filter: shadow;
+            background-color: rgb(247, 255, 255);
             border-radius: 10px;
             padding: 20px;
         }
@@ -39,17 +38,29 @@
             <h1>Login</h1>
         </div>
         <div class="card-body">
-            <div class="my-4">
-                <label for="username" class="form-label">Masukan username:</label>
-                <input type="text" name="username" class="form-control" placeholder="Masukan username">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $item )
+                       <li>{{ $item }}</li> 
+                    @endforeach
+                </ul>
             </div>
-            <div class="my-4">
-                <label for="password" class="form-label">Masukan password:</label>
-                <input type="text" name="password" class="form-control" placeholder="Masukan username">
-            </div>
-            <div class="mt-5 text-center">
-                <input type="submit" class="btn btn-primary" value="LOGIN">
-            </div>
+            @endif
+            <form action="{{ url('/login') }}" method="post">
+                @csrf
+                <div class="my-4">
+                    <label for="username" class="form-label">Masukan Email:</label>
+                    <input type="email" name="email" class="form-control" placeholder="Masukan email">
+                </div>
+                <div class="my-4">
+                    <label for="password" class="form-label">Masukan Password:</label>
+                    <input type="text" name="password" class="form-control" placeholder="Masukan username">
+                </div>
+                <div class="mt-5 text-center d-grid">
+                    <input type="submit" class="btn btn-primary" value="LOGIN">
+                </div>
+            </form>
         </div>
     </div>
 </body>
